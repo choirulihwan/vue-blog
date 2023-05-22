@@ -1,6 +1,6 @@
 <template>
     <div>
-        Username <input />
+        Username <input v-model="username" />
     </div>
     <div>
         Password <input />
@@ -8,18 +8,20 @@
     <button @click="login">Login</button>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { ref } from 'vue';
 
-export default {
-    setup() {
-        const router = useRouter();
-        const login = () => {
-            localStorage.setItem('authenticated', true) 
-            router.push({ name: 'home' })
-        }
+const router = useRouter()
+const store = useStore()
+const username = ref("")
 
-        return { login }
-    }
+const login = () => {
+    localStorage.setItem('authenticated', true) 
+    store.commit('user/setUsername', username.value)   
+    store.dispatch("user/getCredential")            
+    router.push({ name: 'home' })
 }
+    
 </script>

@@ -1,15 +1,11 @@
 import { createStore } from "vuex"
+import post from './modules/post'
+import user from './modules/user'
 
 const store = createStore({
-    state() {
-        return {
-            totalLike: 0
-        }
-    },
-    mutations: {
-        increment(state) {
-            state.totalLike++;
-        }
+    modules: {
+        post, 
+        user
     }
 }); 
 
